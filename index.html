@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="new.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloxsik.bio</title>
+</head>
+<body>
+ <img src="img/ava.jpg" alt="avatar" class="ava fade-in">
+ <h1 class="name fade-in">Bloxsik</h1>
+ <h2 class="bio fade-in">junior web developer</h2>
+ <h2 class="projective slide-left">My Projects</h2>
+ <div class="frfymusic slide-right">
+
+    <img src="img/project1.png" alt="project demo" class="p1 fade-in">
+    <h3 class="project1 scale-in">frfy Music - сервис для прослушивание музыки</h3>
+    <h4 class="project1bio scale-in">Потрачено времени на проект: 4+ часа</h4>
+
+ </div>
+
+  <div class="frfybio slide-left">
+
+    <img src="img/project2.png" alt="project demo" class="p2 fade-in">
+    <h3 class="project2 scale-in">firefy-bio - сервис для создание био онлайн</h3>
+    <h4 class="project2bio scale-in">Потрачено времени на проект: 6+ часов</h4>
+    
+ </div>
+
+  <h2 class="con fade-in">Contacts</h2>
+  <div class="cd fade-in">
+    <a href="https://discord.com/users/bloxsik.css" target="_blank">Discord</a>
+    <a href="https://github.com/bloxsik-web" target="_blank">GitHub</a>
+  </div>
+  <h3 class="bi fade-in">bloxsik bio 2025 ds: bloxsik.css</h3>
+  <h3 class="load">ㅤ</h3>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.fade-in, .slide-left, .slide-right, .scale-in').forEach(el => observer.observe(el));
+    document.querySelector('.ava').classList.add('soft-pulse');
+    
+    const particlesContainer = document.createElement('div');
+    particlesContainer.style.position = 'fixed';
+    particlesContainer.style.top = '0';
+    particlesContainer.style.left = '0';
+    particlesContainer.style.width = '100%';
+    particlesContainer.style.height = '100%';
+    particlesContainer.style.pointerEvents = 'none';
+    particlesContainer.style.zIndex = '-1';
+    document.body.appendChild(particlesContainer);
+    
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.width = `${Math.random() * 4 + 1}px`;
+        particle.style.height = particle.style.width;
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+        particle.style.background = `rgba(198, 198, 198, ${Math.random() * 0.05 + 0.02})`;
+        particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        particlesContainer.appendChild(particle);
+    }
+    
+    document.querySelectorAll('.project1, .project2, .bio, .p1, .p2').forEach(el => {
+        el.classList.add('liquid-glass');
+    });
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let bodyX = 0;
+    let bodyY = 0;
+    const speed = 0.05;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX - window.innerWidth / 2) * 0.01;
+        mouseY = (e.clientY - window.innerHeight / 2) * 0.01;
+    });
+    
+    function animateParallax() {
+        bodyX += (mouseX - bodyX) * speed;
+        bodyY += (mouseY - bodyY) * speed;
+        document.body.style.transform = `translate(${bodyX}px, ${bodyY}px)`;
+        requestAnimationFrame(animateParallax);
+    }
+    animateParallax();
+    
+    const ava = document.querySelector('.ava');
+    ava.addEventListener('mouseenter', () => {
+        ava.style.transform = 'translateY(-10px) scale(1.05)';
+    });
+    ava.addEventListener('mouseleave', () => {
+        ava.style.transform = 'translateY(0) scale(1)';
+    });
+    
+    document.querySelectorAll('.cd a').forEach(link => {
+        link.addEventListener('mouseenter', (e) => {
+            e.target.style.transform = 'translateY(-5px) scale(1.05)';
+        });
+        link.addEventListener('mouseleave', (e) => {
+            e.target.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    document.querySelectorAll('.project1, .project2').forEach(project => {
+        project.addEventListener('mouseenter', (e) => {
+            e.target.style.transform = 'translateY(-8px) scale(1.01)';
+        });
+        project.addEventListener('mouseleave', (e) => {
+            e.target.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    const cursor = document.createElement('div');
+    cursor.style.position = 'fixed';
+    cursor.style.width = '20px';
+    cursor.style.height = '20px';
+    cursor.style.background = 'radial-gradient(circle, rgba(198,198,198,0.2) 0%, transparent 70%)';
+    cursor.style.borderRadius = '50%';
+    cursor.style.pointerEvents = 'none';
+    cursor.style.zIndex = '9999';
+    cursor.style.transform = 'translate(-50%, -50%)';
+    document.body.appendChild(cursor);
+    
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+    });
+    
+    document.querySelectorAll('a, .ava, .project1, .project2').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.width = '40px';
+            cursor.style.height = '40px';
+            cursor.style.background = 'radial-gradient(circle, rgba(240,240,240,0.3) 0%, transparent 70%)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.width = '20px';
+            cursor.style.height = '20px';
+            cursor.style.background = 'radial-gradient(circle, rgba(198,198,198,0.2) 0%, transparent 70%)';
+        });
+    });
+    
+    const audio = new Audio();
+    audio.src = 'https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3';
+    audio.volume = 0.3;
+    
+    const playButton = document.createElement('button');
+    playButton.innerHTML = '🎵';
+    playButton.style.position = 'fixed';
+    playButton.style.bottom = '20px';
+    playButton.style.right = '20px';
+    playButton.style.width = '50px';
+    playButton.style.height = '50px';
+    playButton.style.borderRadius = '50%';
+    playButton.style.background = 'rgba(40,40,40,0.6)';
+    playButton.style.backdropFilter = 'blur(10px)';
+    playButton.style.border = '1px solid rgba(198,198,198,0.2)';
+    playButton.style.color = 'rgb(220,220,220)';
+    playButton.style.fontSize = '24px';
+    playButton.style.cursor = 'pointer';
+    playButton.style.zIndex = '1000';
+    playButton.style.transition = 'all 0.3s ease';
+    document.body.appendChild(playButton);
+    
+    let isPlaying = false;
+    playButton.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            playButton.innerHTML = '🎵';
+            playButton.style.background = 'rgba(40,40,40,0.6)';
+        } else {
+            audio.play();
+            playButton.innerHTML = '⏸️';
+            playButton.style.background = 'rgba(60,60,60,0.8)';
+        }
+        isPlaying = !isPlaying;
+    });
+    
+    playButton.addEventListener('mouseenter', () => {
+        playButton.style.transform = 'scale(1.1)';
+        playButton.style.boxShadow = '0 0 20px rgba(198,198,198,0.2)';
+    });
+    playButton.addEventListener('mouseleave', () => {
+        playButton.style.transform = 'scale(1)';
+        playButton.style.boxShadow = 'none';
+    });
+    
+    const themeToggle = document.createElement('button');
+    themeToggle.innerHTML = '🌙';
+    themeToggle.style.position = 'fixed';
+    themeToggle.style.bottom = '80px';
+    themeToggle.style.right = '20px';
+    themeToggle.style.width = '50px';
+    themeToggle.style.height = '50px';
+    themeToggle.style.borderRadius = '50%';
+    themeToggle.style.background = 'rgba(40,40,40,0.6)';
+    themeToggle.style.backdropFilter = 'blur(10px)';
+    themeToggle.style.border = '1px solid rgba(198,198,198,0.2)';
+    themeToggle.style.color = 'rgb(220,220,220)';
+    themeToggle.style.fontSize = '24px';
+    themeToggle.style.cursor = 'pointer';
+    themeToggle.style.zIndex = '1000';
+    themeToggle.style.transition = 'all 0.3s ease';
+    document.body.appendChild(themeToggle);
+    
+    let isDark = true;
+    themeToggle.addEventListener('click', () => {
+        if (isDark) {
+            document.body.style.background = 'linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%)';
+            document.body.style.color = '#333';
+            themeToggle.innerHTML = '☀️';
+            themeToggle.style.background = 'rgba(240,240,240,0.6)';
+            themeToggle.style.color = '#333';
+        } else {
+            document.body.style.background = 'linear-gradient(135deg, rgb(25, 25, 25) 0%, rgb(32, 32, 32) 50%, rgb(28, 28, 28) 100%)';
+            document.body.style.color = 'rgb(240, 240, 240)';
+            themeToggle.innerHTML = '🌙';
+            themeToggle.style.background = 'rgba(40,40,40,0.6)';
+            themeToggle.style.color = 'rgb(220,220,220)';
+        }
+        isDark = !isDark;
+    });
+    
+    const yearSpan = document.createElement('span');
+    yearSpan.textContent = new Date().getFullYear();
+    document.querySelector('.bi').innerHTML = document.querySelector('.bi').innerHTML.replace('2025', yearSpan.textContent);
+    
+    const timeElement = document.createElement('div');
+    timeElement.style.position = 'fixed';
+    timeElement.style.top = '20px';
+    timeElement.style.right = '20px';
+    timeElement.style.background = 'rgba(40,40,40,0.6)';
+    timeElement.style.backdropFilter = 'blur(10px)';
+    timeElement.style.padding = '10px 20px';
+    timeElement.style.borderRadius = '25px';
+    timeElement.style.border = '1px solid rgba(198,198,198,0.2)';
+    timeElement.style.color = 'rgb(220,220,220)';
+    timeElement.style.fontSize = '14px';
+    timeElement.style.zIndex = '1000';
+    document.body.appendChild(timeElement);
+    
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('ru-RU', { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        timeElement.textContent = timeString;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+    
+    const scrollProgress = document.createElement('div');
+    scrollProgress.style.position = 'fixed';
+    scrollProgress.style.top = '0';
+    scrollProgress.style.left = '0';
+    scrollProgress.style.width = '0%';
+    scrollProgress.style.height = '3px';
+    scrollProgress.style.background = 'linear-gradient(90deg, rgba(198,198,198,0.8), rgba(240,240,240,1))';
+    scrollProgress.style.zIndex = '9999';
+    scrollProgress.style.transition = 'width 0.1s ease';
+    document.body.appendChild(scrollProgress);
+    
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        scrollProgress.style.width = `${scrolled}%`;
+    });
+    
+    const backToTop = document.createElement('button');
+    backToTop.innerHTML = '↑';
+    backToTop.style.position = 'fixed';
+    backToTop.style.bottom = '140px';
+    backToTop.style.right = '20px';
+    backToTop.style.width = '50px';
+    backToTop.style.height = '50px';
+    backToTop.style.borderRadius = '50%';
+    backToTop.style.background = 'rgba(40,40,40,0.6)';
+    backToTop.style.backdropFilter = 'blur(10px)';
+    backToTop.style.border = '1px solid rgba(198,198,198,0.2)';
+    backToTop.style.color = 'rgb(220,220,220)';
+    backToTop.style.fontSize = '24px';
+    backToTop.style.cursor = 'pointer';
+    backToTop.style.opacity = '0';
+    backToTop.style.transition = 'all 0.3s ease';
+    backToTop.style.zIndex = '1000';
+    document.body.appendChild(backToTop);
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTop.style.opacity = '1';
+        } else {
+            backToTop.style.opacity = '0';
+        }
+    });
+    
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    backToTop.addEventListener('mouseenter', () => {
+        backToTop.style.transform = 'scale(1.1)';
+        backToTop.style.boxShadow = '0 0 20px rgba(198,198,198,0.2)';
+    });
+    backToTop.addEventListener('mouseleave', () => {
+        backToTop.style.transform = 'scale(1)';
+        backToTop.style.boxShadow = 'none';
+    });
+});
+</script>
+
+</body>
+</html>
